@@ -10,7 +10,7 @@
         body{padding-top:1em;display:flex;flex-direction:column;
          justify-content:space-evenly;align-items:center;flex:1;}
         hr{width:100%;border: 2px solid steelblue;margin-bottom:1.444em;
-            box-shadow: -5px 1px 5px 1px purple;}
+            box-shadow: -5px 1px 5px 1px purple;margin-top:0.888em;}
          .topLeftBtn1{position:absolute;top:3px;left:6px;display:flex;}
          .topLeftBtn1 .txt1{ color:skyblue; font-size:0.444em;margin:3px 0 0 3px;}
          .topLeftBtn1 .icon1 {font-size:1em;padding-bottom:6px;}
@@ -27,9 +27,15 @@
          .docTopicBtn {cursor:pointer;border-radius: 13px;background: slategrey;
             color: skyblue; font-size: 0.666em; padding: 6px;}
          .docTopicBtn:hover{border:2px solid steelblue}
-        .mainBtn{margin:1em; color:black;} 
-        .subMenuBtn { color:#75bdb7; border-radius: 13px;  background-image: linear-gradient(grey, steelblue, black);
-                   margin:0.666em;cursor:pointer;font-size:0.888em;padding: 2px 6px 4px 6px; }
+         .BtnHover:hover{border:2px solid steelblue}
+        .mainBtn{margin:1em; color:black;border:1px solid royalblue;} 
+        .mainBtn:hover{border:2px solid steelblue; color:darkslategrey}
+        .subMenuBtn { 
+            color:#013733; border-radius: 13px;  
+            background-image: linear-gradient(grey, steelblue, black);
+            margin:0.666em;cursor:pointer;font-size:0.888em;padding: 2px 6px 4px 6px; 
+            border:1px solid blue;
+        }
         .btnTXT{font-size:1em;}
         /* .btnTXT:hover{color:navajowhite;} */
         .hoverTXT:hover{color:darkblue;}
@@ -48,8 +54,10 @@
                repeating-linear-gradient(darkslateblue, darkslateblue 40px, #344065 40px, #344065 41px, darkslateblue 41px);
             line-height: 31px;
             padding: 8px 10px;
-            max-width: 66em;
+            max-width: 44em;
          }
+        .speakGlow{box-shadow: 0px 0px 10px 0px limegreen !important;}
+        .recGlow{box-shadow: 0px 0px 10px 0px limegreen !important;}
         
       @media only screen and (max-width: 800px) { /* TABLET */
          body{  background-color: #04223c;}
@@ -60,7 +68,7 @@
       @media only screen and (max-width: 500px) { /* PHONE */
          body{ background-color: #02051e;}
          .btnTXT{font-size:0.888em;}
-         .mainBtn{margin:0.666em;}
+         .mainBtn{margin:0.222em;}
          .subMenuBtn{font-size:0.666em;}
       }
 
@@ -74,31 +82,38 @@
 
      </style>
      <aside class="topLeftBtn1">
-      <span class="icon1" style="border-radius:100%;background:steelblue; 
-      border:2px solid grey;">🎪</span><span class="txt1">home</span>
+      <button class="icon1 BtnHover" style="border-radius:100%;background:steelblue; 
+      border:2px solid grey;">🎪</button><span class="txt1">home</span>
       </aside>
       <aside style="font-size: 0.666em;color: steelblue;margin: -10px 0 4px 0;">
          ai_corpus</aside>
       <aside class="topRightBtn2">
          <span class="txt1">charts</span>
-         <span class="icon1" style="border-radius:100%;background:crimson; 
-         border:2px solid grey;">🎢</span>
+         <button class="icon1 BtnHover" style="border-radius:100%;background:crimson; 
+         border:2px solid grey;">🎢</button>
          </aside>      
       <header style="display:flex;justify-content:space-evenly;
         background-image: linear-gradient(grey, steelblue, black);
         box-shadow:0 0 14px 0px steelblue;border-radius:13px; margin:0 auto;
         width:93%; flex: 0 0 auto;">
-         <button class="mainBtn" onclick="transcribeTXT()" style="border-radius:8px;
+         <button id="recBtn" class="mainBtn" onclick="recAUDIO()" style="border-radius:8px;
+         background:grey; 
+         cursor:pointer;box-shadow: inset 0px 0px 10px 0px limegreen;">
+         <span style="border-radius:100%;background:limegreen;
+           border:1px solid grey;">
+         🔴</span><span style="color:black;" class="btnTXT hoverTXT">REC</span>
+      </button>        
+         <button id="speakBtn" class="mainBtn" onclick="speakTXT()" style="border-radius:8px;
             background:grey; 
             cursor:pointer;box-shadow: inset 0px 0px 10px 0px limegreen;">
             <span style="border-radius:100%;background:limegreen;
               border:1px solid grey;">
-            🎤</span><span class="btnTXT hoverTXT">Speak</span>
+            🎤</span><span style="color:black;" class="btnTXT hoverTXT">SPEAK</span>
          </button>
 
          <section id="listeningBox" class="mainBtn" style="border-radius:8px;
          background:limegreen;padding: 6px; display:none;">
-            <span>🔴</span> Listening 
+            <span>🔴</span> Transcribe... 
         </section>
 
          <section id="notlisteningBox" class="mainBtn" style="border-radius:8px;
@@ -125,13 +140,109 @@
             ">⚠️ error...</section>
 
 
-         <button class= "mainBtn " onclick="stopTXT()" style="border-radius:8px;
+         <button class= "mainBtn " onclick="runBoth()" style="border-radius:8px;
+            background:grey;box-shadow: inset 0px 0px 10px 0px purple;
+            cursor:pointer;"><span style="border-radius:100%;background:purple;
+              border:1px solid grey;">
+            🎇</span><span class="btnTX hoverTXT">BOTH</span>
+         </button>
+         <button class= "mainBtn " onclick="stopAllRecord()" style="border-radius:8px;
             background:grey;box-shadow: inset 0px 0px 10px 0px crimson;
             cursor:pointer;"><span style="border-radius:100%;background:firebrick;
               border:1px solid grey;">
-            ⛔</span><span class="btnTX hoverTXT">Stop</span>
+            ⛔</span><span class="btnTX hoverTXT">STOP</span>
          </button>
         </header>
+        <section id="infoBOX"  class="hiddenTab scrollBarV" 
+            style="width:80.888%;max-width:44em;margin: 0 2% 0 2%;border-radius: 13px; border: solid 1px steelblue; box-shadow: 1px 1px 11px 0px cyan;
+                padding: 4% 0 4% 4%; color: cyan;flex: 1;display: flex;flex-direction: column;max-height: 60%;overflow-y: scroll;">
+           <header style="font-size: 0.777em; display:flex;flex: 0 0 auto;">
+            🌎 INFO 🛰️: 
+            <aside style="display:none;width:133px;
+            border-radius: 10px; margin-left: 1em;
+            flex: 0 0 auto;
+            box-shadow: inset -1px -1px 4px 1px rgb(83, 93, 204);">
+            &nbsp;&nbsp;⚡ STEPS 
+         </aside>
+           </header>
+           <hr></hr>
+           <header style="display:flex;flex: 0 0 auto;">
+            ai_HAPi_TXT : ai_Corpus gnr8tr 4 aXTRaTXTa & AXI
+            </header>
+            <hr>
+            <h2>Audio & Haptic Text - dictation recorder:</h2> 
+            <article>classify, encode & preprocess data for ai corpus/model definitions!</article>
+            <br>
+            <article>Click 🎤 SPEAK, to ascribe your voice to text.</article>
+            <article>Click 🔴 REC, to record your voice to mp4.</article>
+            <article>Click 🏰 SAVE TXT.</article>
+            <article>Click 🎬 SAVE MP4.</article>
+            <article>View 💾 SAVED, in 🎡 ALL CHATS.</article>
+            <hr>
+            <h3>Menus:</h3>
+            <article>#️⃣means:.</article>
+            <article>🔣means:.</article>
+            <hr>
+            <h4>Save:</h4>
+            <article>COPY TXT with the 📋 copy button.</article>
+            <article>SAVE Audio with 📋 download btn. button.</article>
+        </section>
+
+
+        <section id="allchatBOX"  class="hiddenTab scrollBarV" 
+            style="width:80.888%;max-width:44em;margin: 0 2% 0 2%;border-radius: 13px; border: solid 1px steelblue; box-shadow: 1px 1px 11px 0px cyan;
+                padding: 4% 0 4% 4%; color: cyan;flex: 1;display: flex;flex-direction: column;max-height: 60%;overflow-y: scroll;">
+           <header style="font-size: 0.777em; display:flex;flex: 0 0 auto;">
+            🛰️ SAVE locally 🌎: 
+            <aside style="display:none;width:133px;
+            border-radius: 10px; margin-left: 1em;
+            flex: 0 0 auto;
+            box-shadow: inset -1px -1px 4px 1px rgb(83, 93, 204);">
+            &nbsp;&nbsp;⚡ Connected 
+         </aside>
+           </header>
+           <hr></hr>
+           <h4>TXTz</h4>
+           <header style="display:flex;flex: 0 0 auto;">
+            <button class="BtnHover" onclick="backChatFn()"  style="font-size:0.666em;padding:0.444em;border-radius:13px;
+            box-shadow: inset -1px -1px 4px 1px rgb(112, 123, 243);cursor:pointer;background: #be75c8;">
+            ⏪ Back to TXT  ⏪</button>
+            <button class="BtnHover" onclick="newChatFn()"  style="font-size:0.666em;padding:0.444em;border-radius:13px;
+            box-shadow: inset -1px -1px 4px 1px rgb(112, 123, 243);cursor:pointer;background: #be75c8;">
+            📜 New TXT 📜</button>
+           </header>
+           <article id="allChatsMenu" style="display:flex;flex-direction:column;
+                 align-items:flex-start;
+                 flex:1;
+                 /* overflow-y:scroll;max-height: 70%; */
+                  margin-right: 1%;">
+           </article>
+           <hr>
+           <h4>AUDIOz</h4>
+           <article id="allAudiosMenu" style="display:flex;flex-direction:column;
+                 align-items:flex-start;
+                 flex:1;
+                 /* overflow-y:scroll;max-height: 70%; */
+                  margin-right: 1%;">
+           </article>
+        </section>
+      <textarea id="textareaBOX" onmouseup="setCursorRowFn()" class="scrollBarV"
+        style="width:80.888%;
+        margin: 0 2% 0 2%;
+        display:flex;flex:1;
+        border-radius: 13px; border: solid 1px steelblue; box-shadow: 1px 1px 11px 0px cyan;
+        padding: 4% 0 4% 4%; color: cyan; line-height: 2.444em;" spellcheck="false"
+        onkeyup="keyupTXT();">Click speak, edit, save...</textarea>
+    <menu style="display:flex;justify-content:space-evenly;background: #182b3d;
+        flex: 0 0 auto;flex-wrap: wrap;
+        border-radius: 30px;margin:0;padding:0;margin-bottom:-6px;
+        box-shadow: inset -5px 7px 8px 0px #472c88;">
+        <button class="subMenuBtn" onclick="undoFn()">↶undo</button>
+        <button class="subMenuBtn" onclick="titlelineFn()">#️⃣title</button>
+        <button class="subMenuBtn" onclick="numberlineFn()">🔢1.2.3.</button>
+        <button class="subMenuBtn" onclick="endlineFn()">🔣.,_?!</button>
+        <button class="subMenuBtn" onclick="quotelineFn()">*️⃣quote</button>
+    </menu>
         <menu style="display:flex;justify-content:space-evenly;
             margin:0;padding:0;margin-top:-6px;border-radius: 30px;
             box-shadow: inset -2px -8px 17px 0px #3737cf;background: #182b3d;
@@ -150,81 +261,7 @@
             ">__</span></button>
          <button class="subMenuBtn" onclick="pipeFn()"><span style="font-size: 0.777em;
             ">|</span></button>            
-        </menu>
-
-        <section id="infoBOX"  class="hiddenTab scrollBarV" 
-            style="width:80.888%;margin: 0 2% 0 2%;border-radius: 13px; border: solid 1px steelblue; box-shadow: 1px 1px 11px 0px cyan;
-                padding: 4% 0 4% 4%; color: cyan;flex: 1;display: flex;flex-direction: column;max-height: 60%;overflow-y: scroll;">
-           <header style="font-size: 0.777em; display:flex;flex: 0 0 auto;">
-            🌎 INFO 🛰️: 
-            <aside style="display:none;width:133px;
-            border-radius: 10px; margin-left: 1em;
-            flex: 0 0 auto;
-            box-shadow: inset -1px -1px 4px 1px rgb(83, 93, 204);">
-            &nbsp;&nbsp;⚡ STEPS 
-         </aside>
-           </header>
-           <hr></hr>
-           <header style="display:flex;flex: 0 0 auto;">
-            AI_CORPUS
-            </header>
-            <hr>
-            <article>This little app will save and format data locally for ai corpus generation and editing.</article>
-            <article>Click 🎤 SPEAK, to record your voice.</article>
-            <article>Click 🏰 SAVE.</article>
-            <article>View your saved chat in 🎡 ALL CHATS.</article>
-            <article>Use formatting buttons for #️⃣syntax formatting🔣.</article>
-            <article>Finally, EXPORT with the 📋 copy button.</article>
-            <hr>
-        </section>
-
-
-        <section id="allchatBOX"  class="hiddenTab scrollBarV" 
-            style="width:80.888%;margin: 0 2% 0 2%;border-radius: 13px; border: solid 1px steelblue; box-shadow: 1px 1px 11px 0px cyan;
-                padding: 4% 0 4% 4%; color: cyan;flex: 1;display: flex;flex-direction: column;max-height: 60%;overflow-y: scroll;">
-           <header style="font-size: 0.777em; display:flex;flex: 0 0 auto;">
-            🌎 SAVE CHATS locally 🛰️: 
-            <aside style="display:none;width:133px;
-            border-radius: 10px; margin-left: 1em;
-            flex: 0 0 auto;
-            box-shadow: inset -1px -1px 4px 1px rgb(83, 93, 204);">
-            &nbsp;&nbsp;⚡ Connected 
-         </aside>
-           </header>
-           <hr></hr>
-           <header style="display:flex;flex: 0 0 auto;">
-            <button onclick="backChatFn()"  style="font-size:0.666em;padding:0.444em;border-radius:13px;
-            box-shadow: inset -1px -1px 4px 1px rgb(112, 123, 243);cursor:pointer;background: #be75c8;">
-            ⏪ Back to Chat</button>
-            <button onclick="newChatFn()"  style="font-size:0.666em;padding:0.444em;border-radius:13px;
-            box-shadow: inset -1px -1px 4px 1px rgb(112, 123, 243);cursor:pointer;background: #be75c8;">
-            📜 New Chat</button>
-           </header>
-           <article id="allChatsMenu" style="display:flex;flex-direction:column;
-                 align-items:flex-start;
-                 flex:1;
-                 /* overflow-y:scroll;max-height: 70%; */
-                  margin-right: 1%;">
-           </article>
-           <hr>
-        </section>
-      <textarea id="textareaBOX" onmouseup="setCursorRowFn()" class="scrollBarV"
-        style="width:80.888%;
-        margin: 0 2% 0 2%;
-        display:flex;flex:1;
-        border-radius: 13px; border: solid 1px steelblue; box-shadow: 1px 1px 11px 0px cyan;
-        padding: 4% 0 4% 4%; color: cyan; line-height: 2.444em;" spellcheck="false"
-        onkeyup="keyupTXT();">Click speak, and say something...</textarea>
-    <menu style="display:flex;justify-content:space-evenly;background: #182b3d;
-        flex: 0 0 auto;flex-wrap: wrap;
-        border-radius: 30px;margin:0;padding:0;margin-bottom:-6px;
-        box-shadow: inset -5px 7px 8px 0px #472c88;">
-        <button class="subMenuBtn" onclick="undoFn()">↶undo</button>
-        <button class="subMenuBtn" onclick="titlelineFn()">#️⃣title</button>
-        <button class="subMenuBtn" onclick="numberlineFn()">🔢1.2.3.</button>
-        <button class="subMenuBtn" onclick="endlineFn()">🔣.,_?!</button>
-        <button class="subMenuBtn" onclick="quotelineFn()">*️⃣quote</button>
-    </menu>
+        </menu>    
       <footer style="display:flex;justify-content:space-evenly;width:90%;margin:0 auto; 
       margin-bottom:0.666%;
       flex: 0 0 auto;
@@ -244,12 +281,12 @@
            border:1px solid grey;">
          🏰</span><span class="btnTXT hoverTXT">SAVE</span>
       </button>
-       <button onclick="copyChatFn()" style="margin:1em;border-radius:8px;background:grey;
+       <button class="mainBtn" onclick="copyChatFn()" style="margin:1em;border-radius:8px;background:grey;
           cursor:pointer;box-shadow: inset -1px -1px 4px 1px orangered;">
           <span style="border-radius:100%;background:orangered;border:1px solid grey;">
             📋</span> <span class="btnTXT hoverTXT">COPY TXT</span>
        </button>
-       <button class="" onclick="allChatFn()" style="margin:1em;border-radius:8px;background:grey;
+       <button class="mainBtn" class="" onclick="allChatFn()" style="margin:1em;border-radius:8px;background:grey;
           cursor:pointer;box-shadow: inset -1px -1px 4px 1px rebeccapurple;">
           <span style="border-radius:100%;background:rebeccapurple;border:1px solid grey;">
             🎡</span> <span class="btnTXT hoverTXT">ALL CHATS</span>
@@ -274,9 +311,12 @@ let textareaBOX = document.getElementById('textareaBOX');
 let allchatBOX = document.getElementById('allchatBOX');
 let infoBOX = document.getElementById('infoBOX');
 let textareaTXT = [], selectedTXT='';
+let recBtn = document.getElementById('recBtn');
+let speakBtn = document.getElementById('speakBtn');
 let stateListeningBox = document.getElementById('listeningBox');
 let stateNotListeningBox = document.getElementById('notlisteningBox');
 let isListening = false;
+let isRecording = false;
 let stateErrorBox = document.getElementById('errorBox');
 let stateSavedBox = document.getElementById('savedBox');
 let stateCopiedBox = document.getElementById('copiedBox');
@@ -298,12 +338,27 @@ let showINFO = () => {
 
 
 }
-    let saveCHAT = () => {
+let saveCHAT = () => {
     transcript = textareaBOX.value;
     textareaTXT = transcript.split('\n')
     saveChatLocalStorageFn();
 
+    //set txt page
+    infoBOX.classList.add('hiddenTab')
+    allchatBOX.classList.add('hiddenTab')
+    textareaBOX.classList.remove('hiddenTab')
 }
+let speakTXT = () => {
+    transcribeTXT();
+    recordVoice();
+}
+let recAUDIO = () => {
+    recordVoice();
+}
+let runBoth = () => { //for this to work, it has to hold text transcode...bypass timeout
+    // recordVoice();
+}
+
 let transcribeTXT = () => {
     if(textareaBOX.classList.contains('hiddenTab')){//not visible, make visible.
         infoBOX.classList.add('hiddenTab')
@@ -312,13 +367,13 @@ let transcribeTXT = () => {
         return;
     }
     recognition.onstart = () => { //------------------LISTENING
-        toggleRecordState(true);
+        toggleTranscribeState(true);
     }
     recognition.onresult = (e) => {//---------------END RECORD
         transcript = e.results[0][0].transcript;
         textareaTXT.push(transcript)
         textareaBOX.value = textareaTXT.join('\n');
-        toggleRecordState(false);
+        toggleTranscribeState(false);
         txtBOXLineNumber = textareaTXT.length;
         if(txtBOXLineNumber===1){ //skip title line
             // console.log('do not autosave')
@@ -326,26 +381,59 @@ let transcribeTXT = () => {
             // console.log('autosave')
             saveChatLocalStorageFn();
         }
+        // stopAllRecord();
     }
     recognition.start();
 }
-let toggleRecordState = (state) => { 
+let recordVoice = () => {
+    console.log('Start REC voice')
+    toggleRecordState(!isRecording) //!recording is toggle behavior
+}
+let stopRecordVoice = () => {
+    console.log('Stop REC voice')
+    toggleRecordState(false)
+}
+let toggleTranscribeState = (state) => { 
     if(state){//LISTENING
         isListening = true;
         stateListeningBox.style.display = "inline";
         stateNotListeningBox.style.display = "none";   
         stateErrorBox.style.display = "none";   
+        speakBtn.classList.add('speakGlow')
     }else{ //NOT LISTENING
         isListening = false;
         stateListeningBox.style.display = "none";
         stateNotListeningBox.style.display = "inline";        
         stateErrorBox.style.display = "none";        
+        speakBtn.classList.remove('speakGlow')
     }
 }
-let stopTXT = () => { 
-    recognition.stop();
-    toggleRecordState(false);                  
-};
+let toggleRecordState = (state) => { 
+    if(state){//RECORDING
+        isRecording = true;
+        // stateListeningBox.style.display = "inline";
+        // stateNotListeningBox.style.display = "none";   
+        // stateErrorBox.style.display = "none";   
+        recBtn.classList.add('recGlow')
+    }else{ //NOT RECORDING
+        isRecording = false;
+        // stateListeningBox.style.display = "none";
+        // stateNotListeningBox.style.display = "inline";        
+        // stateErrorBox.style.display = "none";        
+        recBtn.classList.remove('recGlow')
+    }
+}
+
+let stopAllRecord = () => { 
+    recognition.stop(); //stop TXT
+    stopRecordVoice(); //stop mp
+    toggleTranscribeState(false);                  
+}
+// let stopTXT = () => { 
+//     // recognition.stop(); //stop TXT
+//     stopAllRecord(); //stop 
+//     toggleTranscribeState(false);                  
+// };
 let primeFn = () => {
     selectedTXT = textareaBOX.value.substring(textareaBOX.selectionStart, textareaBOX.selectionEnd);
     if(selectedTXT){
@@ -432,8 +520,9 @@ let hyphenFn = () => { //add hyphen to begin line
         }
         textareaTXT[textareaTXT.length-1] = txtline;
         textareaBOX.value = textareaTXT.join('\n');
-        toggleRecordState(false);
-        recognition.stop();
+        toggleTranscribeState(false);
+        // recognition.stop();
+        // stopAllRecord(); //stop 
     }  
 }             
 let pipeFn = () => { // add pipe to begin line
@@ -447,8 +536,9 @@ let pipeFn = () => { // add pipe to begin line
         }
         textareaTXT[textareaTXT.length-1] = txtline;
         textareaBOX.value = textareaTXT.join('\n');
-        toggleRecordState(false);
-        recognition.stop();
+        toggleTranscribeState(false);
+        // recognition.stop();
+        // stopAllRecord(); //stop 
     }              
 }             
 let undoFn = () => { 
@@ -496,8 +586,9 @@ let titlelineFn = () => {  // Add # to begin line
             textareaTXT[textareaTXT.length-1] = txtline;
         }                
         textareaBOX.value = textareaTXT.join('\n');
-        toggleRecordState(false);
-        recognition.stop();
+        toggleTranscribeState(false);
+        // recognition.stop();
+        // stopAllRecord(); //stop 
         setCursorToLine(txtBOXLineNumber); 
     }
 };   
@@ -541,8 +632,9 @@ let numberlineFn = () => {  //add 1. to begin line
         txtline = incrementNum(txtline);
         textareaTXT[textareaTXT.length-1] = txtline;
         textareaBOX.value = textareaTXT.join('\n');
-        toggleRecordState(false);
-        recognition.stop();
+        toggleTranscribeState(false);
+        // recognition.stop();
+        // stopAllRecord(); //stop 
     }
 }
 let quotelineFn = () => { //add > to begin line
@@ -556,8 +648,9 @@ let quotelineFn = () => { //add > to begin line
         }
         textareaTXT[textareaTXT.length-1] = txtline;
         textareaBOX.value = textareaTXT.join('\n');
-        toggleRecordState(false);
-        recognition.stop();
+        toggleTranscribeState(false);
+        // recognition.stop();
+        // stopAllRecord(); //stop 
     }
 }
 let endlineFn = () => {  // add endline chars.
@@ -574,8 +667,9 @@ let endlineFn = () => {  // add endline chars.
         } else { txtline += '.';}
         textareaTXT[textareaTXT.length-1] = txtline;
         textareaBOX.value = textareaTXT.join('\n');
-        toggleRecordState(false);
-        recognition.stop();
+        toggleTranscribeState(false);
+        // recognition.stop();
+        // stopAllRecord(); //stop 
     }
 };   
 let backChatFn = () => { 
@@ -635,7 +729,12 @@ let copyChatFn = () => {
         stateNotListeningBox.style.display = "inline";  
         selectedTXT = '';
     },3000)               
-    setTimeout( ()=>{document.getSelection().collapseToEnd()},2000)
+    // setTimeout( ()=>{document.getSelection().collapseToEnd()},2000)
+
+    //set txt page
+    infoBOX.classList.add('hiddenTab')
+    allchatBOX.classList.add('hiddenTab')
+    textareaBOX.classList.remove('hiddenTab')
 };     
 
 let allChatFn = () => { //From AllChats button
@@ -678,11 +777,13 @@ let renderAllChatMenu = () => { //reload all doc view
         const button2 = document.createElement('button');
         button2.textContent = '🗑️';
         button2.classList.add('docDeleteBtn')
+        button2.classList.add('BtnHover')
         button2.onclick = function() { docDeleteFn(item.title) };
         section1.appendChild(button2);  
         const button5 = document.createElement('button');
         button5.textContent = '🎇';
         button5.classList.add('docSavedBtn')
+        button5.classList.add('BtnHover')
         button5.onclick = function(e) { docLookup(item.title); };
         section1.appendChild(button5);
         allChatsMenu.appendChild(section1);    
@@ -769,19 +870,19 @@ let keyupTXT = (e) => {
     console.error(`Speech recognition error TRY CHROME browser: ${event.error}`);
     textareaTXT.push("Try CHROME browser. ~ : )")
     textareaBOX.innerHTML = textareaTXT.join('\n');
-    toggleRecordState(false);
+    toggleTranscribeState(false);
 }); 
 
-document.addEventListener('keyup', function(event) {
-    if (event.altKey && event.code === 'Backquote') { // Alt + ` is pressed
-        console.log('Hot key [alt+~] : start and stop transcribe.') 
-        if(isListening){
-            stopTXT();
-        } else {
-            transcribeTXT();
-        }
-    }
-    });
+// document.addEventListener('keyup', function(event) {
+//     if (event.altKey && event.code === 'Backquote') { // Alt + ` is pressed
+//         console.log('Hot key [alt+~] : start and stop transcribe.') 
+//         if(isListening){
+//             stopTXT();
+//         } else {
+//             transcribeTXT();
+//         }
+//     }
+//     });
  
       </script> 
    </body>
