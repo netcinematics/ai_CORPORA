@@ -34,9 +34,9 @@
         .mainBtn{margin:1em; color:black;border:1px solid royalblue;} 
         .mainBtn:hover{border:2px solid steelblue; color:darkslategrey}
         .subMenuBtn { 
-            color:#013733; border-radius: 13px;  
+            color:#001d1b; border-radius: 13px;  
             background-image: linear-gradient(grey, steelblue, black);
-            margin:0.666em;cursor:pointer;font-size:0.888em;padding: 2px 6px 4px 6px; 
+            margin: 0.666em 0.222ecursor:pointer;font-size:0.888em;padding: 2px 6px 4px 6px; 
             border:1px solid blue;
         }
         .btnTXT{font-size:1em;}
@@ -65,14 +65,14 @@
       @media only screen and (max-width: 800px) { /* TABLET */
          body{  background-color: #04223c;}
          .btnTXT{font-size:0.888em;}
-         .mainBtn{margin:0.888em;}
-         .subMenuBtn{font-size:0.666em;}
+         /* .mainBtn{margin:0.888em;} */
+         .subMenuBtn{font-size:0.888em;}
       }  
       @media only screen and (max-width: 500px) { /* PHONE */
          body{ background-color: #02051e;}
          .btnTXT{font-size:0.888em;}
          .mainBtn{margin:0.222em;}
-         .subMenuBtn{font-size:0.666em;}
+         .subMenuBtn{font-size:0.777em;}
       }
 
       /*  custom scroll bar */
@@ -252,8 +252,7 @@
             display:flex;flex:1;
             border-radius: 13px; border: solid 1px steelblue; box-shadow: 1px 1px 11px 0px cyan;
             padding: 4% 2% 4% 2%; color: cyan; line-height: 2.444em;" spellcheck="false"
-            onkeyup="keyupTXT();">
-            Click speak, edit, save, ASCRIBE.
+            onkeyup="keyupTXT();">Speak, to ASCRIBE txtz...
         </textarea>
       </section>
 
@@ -262,37 +261,41 @@
         border: solid 1px steelblue; box-shadow: 1px 1px 11px 0px forestgreen;
             padding: 1% 0 1% 2%; color: cyan;flex: 1;display: flex;flex-direction: column;overflow-y: scroll;">
        <h4>HANDz encode</h4>
+        <article id="liveView" class="videoView">
+            <button id="webcamButton">Enable Webcam</button>
+            <video id="webcam" autoplay></video>
+        </article>
        </section>
     </main>
-    <menu style="display:flex;justify-content:space-evenly;background: #182b3d;
-        flex: 0 0 auto;flex-wrap: wrap;
-        border-radius: 30px;margin:0;padding:0;margin-bottom:-6px;
-        box-shadow: inset -5px 7px 8px 0px #472c88;">
-        <button class="subMenuBtn" onclick="undoFn()">↶undo</button>
-        <button class="subMenuBtn" onclick="titlelineFn()">#️⃣title</button>
-        <button class="subMenuBtn" onclick="numberlineFn()">🔢1.2.3.</button>
-        <button class="subMenuBtn" onclick="endlineFn()">🔣.,_?!</button>
-        <button class="subMenuBtn" onclick="quotelineFn()">*️⃣quote</button>
-    </menu>
         <menu style="display:flex;justify-content:space-evenly;
             margin:0;padding:0;margin-top:-6px;border-radius: 30px;
             box-shadow: inset -2px -8px 17px 0px #3737cf;background: #182b3d;
             flex: 0 0 auto;flex-wrap: wrap;">
-         <button class="subMenuBtn" onclick="newChatFn()">*new</button>
-         <button class="subMenuBtn" onclick="primeFn()">prime🗝</button>
-         <button class="subMenuBtn" onclick="omniFn()">omni🗝️</button>
-         <button class="subMenuBtn" onclick="alphaFn()">alpha🔑</button>
-         <button class="subMenuBtn" onclick="sigFn()">sig<span style="font-size: 0.777em;
+         <button class="subMenuBtn" onclick="newChatFn()">*NEW*</button>
+         <button class="subMenuBtn" onclick="alphaFn()">ATOM🔑</button>
+         <button class="subMenuBtn" onclick="omniFn()">SUBATOM🗝️</button>
+         <button class="subMenuBtn" onclick="primeFn()">_BAR🗝</button>
+         <button class="subMenuBtn" onclick="sigFn()">AUTH<span style="font-size: 0.777em;
             padding-left: 2px;">📅</span></button>
-         <button class="subMenuBtn" onclick="ymdFn()">ymd<span style="font-size: 0.777em;
+         <button class="subMenuBtn" onclick="ymdFn()">YMD<span style="font-size: 0.777em;
             padding-left: 2px;">📅</span></button>
-         <button class="subMenuBtn" onclick="hyphenFn()"><span style="font-size: 0.777em;
-            ">- </span></button>            
-         <button class="subMenuBtn" onclick="hrFn()"><span style="font-size: 0.777em;
-            ">__</span></button>
-         <button class="subMenuBtn" onclick="pipeFn()"><span style="font-size: 0.777em;
-            ">|</span></button>            
         </menu>    
+        <menu style="display:flex;justify-content:space-evenly;background: #182b3d;
+            flex: 0 0 auto;flex-wrap: wrap;
+            border-radius: 30px;margin:0;padding:0;margin-bottom:-6px;
+            box-shadow: inset -5px 7px 8px 0px #472c88;">
+            <button class="subMenuBtn" onclick="undoFn()">↶undo</button>
+            <button class="subMenuBtn" onclick="titlelineFn()">#️⃣title</button>
+            <button class="subMenuBtn" onclick="numberlineFn()">🔢1.2.3.</button>
+            <button class="subMenuBtn" onclick="endlineFn()">🔣.,_?!</button>
+            <button class="subMenuBtn" onclick="quotelineFn()">*️⃣quote</button>
+            <button class="subMenuBtn" onclick="hyphenFn()"><span style="font-size: 0.777em;
+                ">- </span></button>            
+             <button class="subMenuBtn" onclick="hrFn()"><span style="font-size: 0.777em;
+                ">__</span></button>
+             <button class="subMenuBtn" onclick="pipeFn()"><span style="font-size: 0.777em;
+                ">|</span></button>            
+        </menu>        
       <footer style="display:flex;justify-content:space-evenly;width:90%;margin:0 auto; 
       margin-bottom:0.666%;
       flex: 0 0 auto;
@@ -305,6 +308,11 @@
            border:1px solid grey;">
          🎭</span><span class="btnTXT hoverTXT">INFO</span>
       </button>
+      <button class="mainBtn" onclick="copyChatFn()" style="border-radius:8px;background:grey;
+      cursor:pointer;box-shadow: inset -1px -1px 4px 1px orangered;">
+      <span style="border-radius:100%;background:orangered;border:1px solid grey;">
+        📋</span> <span class="btnTXT hoverTXT">COPY TXT</span>
+   </button>      
       <button class="mainBtn" onclick="saveCHAT()" style="border-radius:8px;
          background:grey; 
          cursor:pointer;box-shadow: inset 0px 0px 10px 0px yellow;">
@@ -312,12 +320,7 @@
            border:1px solid grey;">
          🏰</span><span class="btnTXT hoverTXT">SAVE TXT</span>
       </button>
-       <button class="mainBtn" onclick="copyChatFn()" style="margin:1em;border-radius:8px;background:grey;
-          cursor:pointer;box-shadow: inset -1px -1px 4px 1px orangered;">
-          <span style="border-radius:100%;background:orangered;border:1px solid grey;">
-            📋</span> <span class="btnTXT hoverTXT">COPY TXT</span>
-       </button>
-       <button class="mainBtn" class="" onclick="allChatFn()" style="margin:1em;border-radius:8px;background:grey;
+       <button class="mainBtn" class="" onclick="allChatFn()" style="border-radius:8px;background:grey;
           cursor:pointer;box-shadow: inset -1px -1px 4px 1px rebeccapurple;">
           <span style="border-radius:100%;background:rebeccapurple;border:1px solid grey;">
             🎡</span> <span class="btnTXT hoverTXT">ALL TXTz</span>
@@ -332,6 +335,7 @@
       
       &nbsp; netcinematics, all rights reserved.</legal>
 <script>
+ 
 //----------------------------------DATE-TIME------------
 const currentDate = new Date();
 const year = currentDate.getFullYear();
@@ -1074,6 +1078,54 @@ let showErrorMSG = (err) => {
 //     }
 //     });
  
+//--------------------------------------------------VIDEO----------
+
+const video = document.getElementById('webcam');
+const liveView = document.getElementById('liveView');
+
+// Check if webcam access is supported.
+function hasGetUserMedia() {
+  return !!(navigator.mediaDevices &&
+    navigator.mediaDevices.getUserMedia);
+}
+
+// Keep a reference of all the child elements we create
+// so we can remove them easilly on each render.
+var children = [];
+
+
+// If webcam supported, add event listener to button for when user
+// wants to activate it.
+if (hasGetUserMedia()) {
+  const enableWebcamButton = document.getElementById('webcamButton');
+  enableWebcamButton.addEventListener('click', enableCam);
+} else {
+  console.warn('getUserMedia() is not supported by your browser');
+}
+
+
+// Enable the live webcam view and start classification.
+function enableCam(event) {
+//   if (!model) {
+//     return;
+//   }
+  
+  // Hide the button.
+//   event.target.classList.add('removed');  
+event.target.style.display = 'none';
+  
+  // getUsermedia parameters.
+  const constraints = {
+    video: true
+  };
+
+  // Activate the webcam stream.
+  navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+    video.srcObject = stream;
+    // video.addEventListener('loadeddata', predictWebcam);
+  });
+}
+
       </script> 
    </body>
 </html>
