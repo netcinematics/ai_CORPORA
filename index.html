@@ -20,7 +20,7 @@
          .topRightBtn2 .txt1{ color:skyblue; font-size:0.444em;margin:3px 0 0 3px;}
          .topRightBtn2 .icon1 {font-size:1em;padding-bottom:6px;}
          .docSaveBtn {cursor:pointer;border-radius: 22px;background: #c975a0;color: #5e1717;}
-         .docDeleteBtn {font-size:1.222em;cursor:pointer;border-radius: 100%; background: #34010b; margin:0 0.666em;}
+         .docDeleteBtn {font-size:1.111em;cursor:pointer;border-radius: 100%; background: #34010b; margin:0 0.666em;}
          .docUpdateBtn {cursor:pointer;border-radius: 22px;background: #6bb8e1;color: #314481;}
          .docSavedBtn {font-size:1em;color:gold;box-shadow: 1px 1px 1px gold;
             padding: 0.222em;border-radius: 24em;background: black; cursor: pointer;
@@ -30,7 +30,7 @@
          .docTopicBtn {cursor:pointer;border-radius: 13px;background: darkslategrey;
             color: skyblue; font-size: 0.666em; padding: 6px;}
          .recInputTitle {border-radius: 13px;background: darkslateblue;
-            color: skyblue; font-size:1em;margin-right:1em;padding: 6px;}
+            color: skyblue; font-size:1em;margin-right:0.444em;padding: 6px;}
          .docTopicBtn:hover{border:2px solid steelblue}
          .BtnHover:hover{border:2px solid steelblue}
         .mainBtn{margin:1em; color:black;border:1px solid royalblue;} 
@@ -266,15 +266,44 @@
       cursor:pointer;box-shadow: inset -1px -1px 4px 1px orangered;">
       <span style="border-radius:100%;background:orangered;border:1px solid grey;">
         📋</span> <span class="btnTXT hoverTXT">COPY TXT</span>
-   </button>      
+   </button>
       <button class="mainBtn" onclick="saveCHAT()" style="border-radius:8px;
          background:grey; 
          cursor:pointer;box-shadow: inset 0px 0px 10px 0px yellow;">
          <span style="border-radius:100%;background:orange;
            border:1px solid grey;">
          🎡</span><span class="btnTXT hoverTXT">SAVE TXT</span>
-      </button>
+    </button>
         </footer>
+        <menu style="display:flex;justify-content:space-evenly;
+        margin:0;padding:0;margin-top:-6px;border-radius: 30px;
+        box-shadow: inset -2px -8px 17px 0px #3737cf;background: #182b3d;
+        flex: 0 0 auto;flex-wrap: wrap;">
+     <button class="subMenuBtn" onclick="newChatFn()">*NEW*</button>
+     <button class="subMenuBtn" onclick="alphaFn()">ATOM🔑</button>
+     <button class="subMenuBtn" onclick="omniFn()">SUBATOM🗝️</button>
+     <button class="subMenuBtn" onclick="primeFn()">_BAR🗝</button>
+     <button class="subMenuBtn" onclick="sigFn()">AUTH<span style="font-size: 0.777em;
+        padding-left: 2px;">📅</span></button>
+     <button class="subMenuBtn" onclick="ymdFn()">YMD<span style="font-size: 0.777em;
+        padding-left: 2px;">📅</span></button>
+    </menu>    
+    <menu style="display:flex;justify-content:space-evenly;background: #182b3d;
+        flex: 0 0 auto;flex-wrap: wrap;
+        border-radius: 30px;margin:0;padding:0;margin-bottom:-6px;
+        box-shadow: inset -5px 7px 8px 0px #472c88;">
+        <button class="subMenuBtn" onclick="undoFn()">↶undo</button>
+        <button class="subMenuBtn" onclick="titlelineFn()">#️⃣title</button>
+        <button class="subMenuBtn" onclick="numberlineFn()">🔢1.2.3.</button>
+        <button class="subMenuBtn" onclick="endlineFn()">🔣.,_?!</button>
+        <button class="subMenuBtn" onclick="quotelineFn()">*️⃣quote</button>
+        <button class="subMenuBtn" onclick="hyphenFn()"><span style="font-size: 0.777em;
+            ">- </span></button>            
+         <button class="subMenuBtn" onclick="hrFn()"><span style="font-size: 0.777em;
+            ">__</span></button>
+         <button class="subMenuBtn" onclick="pipeFn()"><span style="font-size: 0.777em;
+            ">|</span></button>            
+    </menu>        
       </section>
 
     <section id="audioBOX"  class="hiddenTab scrollBarV" 
@@ -320,7 +349,7 @@
         <header style="display: flex;">
             <h4 style="margin: 0.888em 0 1em 1em;">🍿 UPLOAD (wav to txt):</h4>
         </header>
-            <aside style="height: 2em;
+        <aside style="height: 2em;
              border-radius: 10px;margin: 0.444em 0 0 1em;
              display:flex;justify-content: space-around;
              box-shadow: inset -1px -1px 4px 1px rgb(83, 93, 204);">
@@ -338,46 +367,10 @@
                  border:1px solid grey;">
              💎</span><span style="color:black;" class="btnTXT hoverTXT">TRANSCRIBE</span>
              </button>
-             </aside>
-
-
+        </aside>
     </main>
-       <!-- <h4>HANDz encode</h4>
-        <article id="liveView" class="videoView">
-            <button id="webcamButton">Enable Webcam</button>
-            <video id="webcam" autoplay></video>
-        </article> -->
     </section>
     </main>
-        <menu style="display:flex;justify-content:space-evenly;
-            margin:0;padding:0;margin-top:-6px;border-radius: 30px;
-            box-shadow: inset -2px -8px 17px 0px #3737cf;background: #182b3d;
-            flex: 0 0 auto;flex-wrap: wrap;">
-         <button class="subMenuBtn" onclick="newChatFn()">*NEW*</button>
-         <button class="subMenuBtn" onclick="alphaFn()">ATOM🔑</button>
-         <button class="subMenuBtn" onclick="omniFn()">SUBATOM🗝️</button>
-         <button class="subMenuBtn" onclick="primeFn()">_BAR🗝</button>
-         <button class="subMenuBtn" onclick="sigFn()">AUTH<span style="font-size: 0.777em;
-            padding-left: 2px;">📅</span></button>
-         <button class="subMenuBtn" onclick="ymdFn()">YMD<span style="font-size: 0.777em;
-            padding-left: 2px;">📅</span></button>
-        </menu>    
-        <menu style="display:flex;justify-content:space-evenly;background: #182b3d;
-            flex: 0 0 auto;flex-wrap: wrap;
-            border-radius: 30px;margin:0;padding:0;margin-bottom:-6px;
-            box-shadow: inset -5px 7px 8px 0px #472c88;">
-            <button class="subMenuBtn" onclick="undoFn()">↶undo</button>
-            <button class="subMenuBtn" onclick="titlelineFn()">#️⃣title</button>
-            <button class="subMenuBtn" onclick="numberlineFn()">🔢1.2.3.</button>
-            <button class="subMenuBtn" onclick="endlineFn()">🔣.,_?!</button>
-            <button class="subMenuBtn" onclick="quotelineFn()">*️⃣quote</button>
-            <button class="subMenuBtn" onclick="hyphenFn()"><span style="font-size: 0.777em;
-                ">- </span></button>            
-             <button class="subMenuBtn" onclick="hrFn()"><span style="font-size: 0.777em;
-                ">__</span></button>
-             <button class="subMenuBtn" onclick="pipeFn()"><span style="font-size: 0.777em;
-                ">|</span></button>            
-        </menu>        
       <footer style="display:flex;justify-content:space-evenly;width:90%;margin:0 auto; 
       margin-bottom:0.666%;
       flex: 0 0 auto;
