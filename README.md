@@ -24,7 +24,7 @@ Generate (proprietary) training data for ai corpora.
 
 ---
 
-# ai_UTILLITY
+# ai_UTILITY
 
 - NeoLogistic generator. 
 
