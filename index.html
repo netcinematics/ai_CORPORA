@@ -35,7 +35,10 @@
          .BtnHover:hover{border:2px solid steelblue}
         .mainBtn{margin:1em; color:black;border:1px solid royalblue;} 
         .mainBtn:hover{border:2px solid steelblue; color:darkslategrey}
-        .subBtn{margin:0.222em; color:black;border:1px solid royalblue;} 
+        .subBtn{
+            margin:0.222em; color:black;border:1px solid royalblue;
+            display: flex;align-items: center;
+        } 
         .subBtn:hover{border:2px solid steelblue; color:darkslategrey}
         .subMenuBtn { 
             color:#001d1b; border-radius: 13px;  
@@ -116,7 +119,7 @@
             cursor:pointer;box-shadow: inset 0px 0px 10px 0px limegreen;">
             <span style="border-radius:100%;background:limegreen;
               border:1px solid grey;">
-            🖋️</span><span style="color:black;" class="btnTXT hoverTXT">ASCRIBE</span>
+            🖋️</span><span style="color:black;" class="btnTXT hoverTXT">aSCRIBEa</span>
          </button>
 
          <section id="recordingBox" class="mainBtn" style="border-radius:8px;
@@ -156,7 +159,7 @@
             background:grey;box-shadow: inset 0px 0px 10px 0px purple;
             cursor:pointer;"><span style="border-radius:100%;background:purple;
               border:1px solid grey;">
-            🎤</span><span class="btnTX hoverTXT">AUDIO</span>
+            🎤</span><span class="btnTX hoverTXT">aRECORDa</span>
          </button>
         </header>
     <main id="MAINFRAME" style="display:flex;flex-direction:column;margin:0.222em;padding:0.444em 0;
@@ -380,12 +383,26 @@
         <span style="border-radius:100%;background:limegreen;
             border:1px solid grey;">
         ▶️</span><span style="color:black;" class="btnTXT hoverTXT">PLAY</span></button-->
-        <audio id="audioPlayer" controls style="margin: 1em auto;
-        display: flex
-    ;
+        <audio id="audioPlayer" controls style="margin: 1em auto; display: flex;
         box-shadow: 1px 1px 8px 4px lime;
         border-radius: 40px;"></audio>
+        <aside  style="    border-radius: 13px;color:steelblue;
+        margin: 1em;padding: 1.444em;width: 80%;
+        box-shadow: 0px 2px 0px 10px black;">
+            <label for="speedControl">Speed:</label>
+            <select id="speedControl" style="color: steelblue;
+            background: black;
+            border-radius: 8px;
+            width: 8em;
+            text-align: center;">
+                <option value="1.0" selected>1.0x</option>
+                <option value="1.5">1.5x</option>
+                <option value="2.0">2.0x</option>
+                <option value="2.5">2.5x</option>
+            </select>
+        </aside>
         <script>
+            //----------AUDIO PLAYER CONTROLS --------------------------
             const audioFile = document.getElementById('audioFile');
             // const playButton = document.getElementById('playBtn');
             const audioPlayer = document.getElementById('audioPlayer');
@@ -400,6 +417,14 @@
                 reader.readAsArrayBuffer(file);
             });
 
+
+            //-- PLAYBACK SPEED SETTING -----------------------
+            // const audio = document.getElementById('myAudio');
+            const speedControl = document.getElementById('speedControl');
+
+            speedControl.addEventListener('change', () => {
+                audioPlayer.playbackRate = parseFloat(speedControl.value);
+            });
             // playButton.addEventListener('click', () => {
             //     audioPlayer.play();
             // });
@@ -524,6 +549,8 @@ let showAUDIO = () => {
     allchatBOX.classList.add('hiddenTab')
     textareaFrame.classList.add('hiddenTab')
 }
+showAUDIO(); //set default view, init tab ---------------------
+
 let showINFO = () => {
     if(infoBOX.classList.contains('hiddenTab') ){
         infoBOX.classList.remove('hiddenTab')
