@@ -43,8 +43,8 @@
         .subMenuBtn { 
             color:#001d1b; border-radius: 13px;  
             background-image: linear-gradient(grey, steelblue, black);
-            margin: 0.666em 0.222ecursor:pointer;font-size:0.888em;padding: 2px 6px 4px 6px; 
-            border:1px solid blue;
+            margin: 0.666em 0.222; cursor:pointer;font-size:0.888em; padding: 2px 6px 4px 6px; 
+            border: 1px solid blue;
         }
         .btnTXT{font-size:1em;}
         /* .btnTXT:hover{color:navajowhite;} */
@@ -532,7 +532,22 @@ recognition.addEventListener("error", (event) => {
     console.error(`Speech recognition error TRY CHROME browser: ${event.error}`);
     stopTXTRecord();
 }); 
-//END INIT SPEECH RECOGNITION
+//END INIT SPEECH RECOGNITION---------------------------
+//----------------------------USR MSG -------------
+let showUSRMSG = (msg) => {
+    stateErrorBox.innerHTML = msg;
+    stateErrorBox.style.display = "inline";
+    stateListeningBox.style.display = "none";
+    stateNotListeningBox.style.display = "none";
+    setTimeout( ()=>{
+        stateErrorBox.style.display = "none";
+        stateListeningBox.style.display = "none";
+        stateNotListeningBox.style.display = "inline";  
+        selectedTXT = '';
+    },3000);
+}
+
+//----------------------------end USR MSG -------------
 //------------------------------SCREEN----------------
 const screenHeight = window.innerHeight;
 const screenWidth = window.innerWidth;
@@ -597,8 +612,9 @@ let recTXT = () => {
     // textareaFrame.classList.remove('hiddenTab')    
     transcribeTXT();
 }
-let recAUDIO = () => {
+let recAUDIO = async () => {
     recordVoice();
+    await toggleAutoLock(true); //on : disallow screen lock
     //set data page
     // infoBOX.classList.add('hiddenTab')
     // allchatBOX.classList.remove('hiddenTab')
@@ -622,7 +638,6 @@ let rec_idx = 0;//feature, universal sequence idx (simplification);
 function recordVoice () {
     let audioChunks = [];
     let audioBlob = null;
-    // console.log('Start REC voice')
     toggleRecordState(!isRecording) //!recording is toggle behavior
     navigator.mediaDevices.getUserMedia({ audio: true })
     .then(stream => {
@@ -638,7 +653,6 @@ function recordVoice () {
             audioChunks = [];
             renderAllAudiosMenu();
             stream.getTracks().forEach(t => t.stop());//remove mic use icon on tab.
-            // navigator.mediaDevices.getUserMedia({ audio: false })
         };
         mediaRecorder.start();
     })
@@ -647,10 +661,11 @@ function recordVoice () {
     });
  
 }
-let stopAUDIORecord = () => {
-    console.log('Stop REC voice')
+let stopAUDIORecord = async () => {
+    // console.log('Stop REC voice')
     toggleRecordState(false);
     if(mediaRecorder){mediaRecorder.stop();}
+    await toggleAutoLock(false); //off : allow screen lock
     //set data page
     // infoBOX.classList.add('hiddenTab')
     // allchatBOX.classList.remove('hiddenTab')
@@ -676,6 +691,56 @@ function saveAudio(rec_idx) {
     } else { return false}
     return true;
 }
+//-------------------------------------------TOGGLE AUTO LOCK for RECORD------------------
+let wakeLockSentinel = null;
+/**
+ * Toggles the screen wake lock functionality
+ * @param {boolean} shouldKeepAwake - If true, prevents screen from sleeping; if false, allows normal timeout behavior
+ * @returns {Promise<boolean>} - Returns true if the requested state was successfully set, false otherwise
+ */
+ async function toggleAutoLock(shouldKeepAwake) {
+    // Check if the Wake Lock API is supported
+    if (!('wakeLock' in navigator)) {
+        setTimeout(showUSRMSG('⚠️ No Wake Lock ⚠️'),3000);
+        console.warn('Wake Lock API is not supported in this browser');
+        return false;
+    }
+    try {
+        if (shouldKeepAwake) { // Only request a new wake lock if we don't already have one
+            if (!wakeLockSentinel) {
+                wakeLockSentinel = await navigator.wakeLock.request('screen');
+                setTimeout(showUSRMSG('Wake Lock Attained'),3000);
+                // Add a listener to reacquire the wake lock if the page becomes visible again
+                document.addEventListener('visibilitychange', async () => {
+                    if (wakeLockSentinel !== null && document.visibilityState === 'visible') {
+                        wakeLockSentinel = await navigator.wakeLock.request('screen');
+                    }
+                });
+            }
+        } else {
+            // Release the wake lock if it exists
+            if (wakeLockSentinel) {
+                setTimeout(showUSRMSG('Wake Lock Released'),3000);
+                await wakeLockSentinel.release();
+                wakeLockSentinel = null;
+            }
+        }
+        
+        return true;
+    } catch (error) {
+        console.error('Error toggling wake lock:', error);
+        return false;
+    }
+}
+/*
+// Example usage:
+// Keep screen awake
+// await toggleAutoLock(true);
+
+// Allow screen to sleep
+// await toggleAutoLock(false);
+*/
+
 /*--------------------------------------END RECORD-VOICE------------*/
 let toggleTranscribeState = (state) => { 
     if(state){//LISTENING
