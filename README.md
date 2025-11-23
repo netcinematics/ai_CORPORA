@@ -4,6 +4,9 @@ Artificial Intelligence (multi-modal) CORPUS.
 
 Generate (proprietary) training data for ai corpora.
 
+DEMO: https://netcinematics.github.io/ai_CORPORA
+
+
 ----
 
 ## Google Developer Program
